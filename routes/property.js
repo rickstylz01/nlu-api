@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const { getPropertyByAddress } = require('../controllers/propertyController');
 
 //enpoints coming soon
-router.get('/test', (req, res) => {
-  res.json({ message: 'Property route is working!' });
-});
+router.get('/:address', getPropertyByAddress);
 
 module.exports = router;
