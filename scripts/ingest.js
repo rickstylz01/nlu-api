@@ -53,12 +53,16 @@ async function ingestScofflaws() {
 
 async function main() {
   try {
+    console.log('Starting ingest...')
     await ingestViolations();
     await ingestScofflaws();
     console.log('All done!');
   } catch (err) {
     console.error('Error ingesting data:', err);
+    console.error(err.stack);
   } finally {
     await pool.end();
   }
 }
+
+main();
