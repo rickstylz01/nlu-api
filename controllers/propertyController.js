@@ -31,4 +31,29 @@ const getPropertyByAddress = async (req, res) => {
   }
 };
 
-module.exports = { getPropertyByAddress };
+const postComment = async(req, res) => {
+  const { address } = req.params;
+  const { author, comment } = req.body;
+
+
+  if (!author || !comment) {
+    return res.status(400).json({ error: 'author and comment are required' });
+  }
+
+  try {
+    const result = await pool.query(
+      `INSERT INTO comments (address, author, comment)
+      VALUES ($1, $2, $3)
+      RETURNING id, address, author, comment, created_at`,
+      [address, author, comment]
+    );
+
+    res.status(201).json(result.rows[0]);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+module.exports = { getPropertyByAddress, postComment };
