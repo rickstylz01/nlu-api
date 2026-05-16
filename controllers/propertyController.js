@@ -56,4 +56,43 @@ const postComment = async(req, res) => {
   }
 }
 
-module.exports = { getPropertyByAddress, postComment };
+const getScofflawsWithViolations = async (req, res) => {
+  const { since } = req.query;
+
+  if (!since) {
+    return res.status(400).json({ error: 'since query parameter is required' });
+  }
+
+  try {
+    const result = await pool.query(
+      `SELECT s.address,
+        json_agg(
+          DISTINCT jsonb_build_object(
+            'id', v.id,
+            'violation_date', v.violation_date,
+            'violation_code', v.violation_code,
+            'status', v.status,
+            'description', v.description
+          )
+        ) AS violations
+      FROM scofflaws s
+      JOIN violations v ON LOWER(s.address) = LOWER(v.address)
+      WHERE v.violation_date >= $1
+      GROUP BY s.address
+      ORDER BY s.address`,
+      [since]
+    );
+
+    res.json({
+      since,
+      count: result.rows.length,
+      results: result.rows,
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+module.exports = { getPropertyByAddress, postComment, getScofflawsWithViolations };
