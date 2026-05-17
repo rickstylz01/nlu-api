@@ -60,12 +60,12 @@ cp .env.example .env
 ```
 
 local values:
-PORT=3000/
-DB_USER=your_postgres_username/
-DB_HOST=localhost/
-DB_NAME=nlu_api/
-DB_PASSWORD=/
-DB_PORT=5432/
+PORT=3000  
+DB_USER=your_postgres_username  
+DB_HOST=localhost  
+DB_NAME=nlu_api  
+DB_PASSWORD=  
+DB_PORT=5432
 
 ### 4. Create the database
 ```bash
