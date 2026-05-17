@@ -17,18 +17,18 @@ Built with Node.js, Express, and PostgreSQL. No ORM — all queries written in r
 
 ## Project Structure
 
-nlu-api/
-├── controllers/
+nlu-api/  
+├── controllers/  
 │   └── propertyController.js   # Request/response logic for all endpoints
-├── db/
+├── db/  
 │   └── db.js                   # PostgreSQL connection pool
-├── docs/
+├── docs/  
 │   └── api.md                  # Full API schema documentation
-├── routes/
+├── routes/  
 │   └── property.js             # Route definitions
-├── scripts/
+├── scripts/  
 │   └── ingest.js               # One-time CSV data loader
-├── sql/
+├── sql/  
 │   └── create_tables.sql       # Database schema
 ├── .env                        # Environment variables (not committed)
 ├── index.js                    # Express app entry point
@@ -60,12 +60,12 @@ cp .env.example .env
 ```
 
 local values:
-PORT=3000
-DB_USER=your_postgres_username
-DB_HOST=localhost
-DB_NAME=nlu_api
-DB_PASSWORD=
-DB_PORT=5432
+PORT=3000/
+DB_USER=your_postgres_username/
+DB_HOST=localhost/
+DB_NAME=nlu_api/
+DB_PASSWORD=/
+DB_PORT=5432/
 
 ### 4. Create the database
 ```bash
